@@ -78,13 +78,38 @@ app.get("/contacts", function(req, res) {
 
 
 
-app.get("/contacts/new", function(req, res) {
-  var guid = req.param("guid"),
-      record = _.findWhere(db, {guid: "1234"});
+app.get("/contacts/new:1111", function(req, res) {
+  var guid = req.param("guid");
 
-    res.render("contact", {contact: ""});
+    db.push ({guid: "1111", firstName: "", lastName: "", nickname: "", company: "", email: "" });
+
+    record = _.findWhere(db, {guid: "1111"});
+
+    res.render("contact", {contact: record});
 
 });
+
+app.post("/contacts/new", function(req, res) {
+  var guid = req.param("guid"),
+      record = _.findWhere(db, {guid: guid});
+
+  if(record) {
+    var formValues = _.pick(req.body, "firstName", "lastName", "nickname", "company", "email");
+    _.extend(record, formValues);
+    if(record.nickname ===  "") {
+      record.nickname = record.firstName;
+    }
+
+ if (record.firstName === "" || record.lastName ) {
+      db.pop();
+    }
+
+    res.redirect("/contacts");
+  } else {
+    res.send("Sorry, the guid " + guid + " doesn't exist in the DB.");
+  }
+});
+
 
 app.get("/contacts/:guid", function(req, res) {
   var guid = req.param("guid"),
@@ -97,6 +122,8 @@ app.get("/contacts/:guid", function(req, res) {
   }
 });
 
+
+
 app.post("/contacts/:guid", function(req, res) {
   var guid = req.param("guid"),
       record = _.findWhere(db, {guid: guid});
@@ -104,7 +131,7 @@ app.post("/contacts/:guid", function(req, res) {
   if(record) {
     var formValues = _.pick(req.body, "firstName", "lastName", "nickname", "company", "email");
     _.extend(record, formValues);
-    if(record.nickname = "") {
+    if(record.nickname ===  "") {
       record.nickname = record.firstName;
     }
     res.redirect("/contacts");
