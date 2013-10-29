@@ -20,16 +20,51 @@
 
 
         function validateInput ( ) {
+
+          var display,
+              cBorder;
+
           if ( this.value.length === 0) {
-          //  console.log ( $(this).closest('.alert-error') )
-            $(this).next().css( "display", "block" );
+            display = "block";
+            cBorder = "red";
           } else {
-            $(this).next().css( "display", "none" );
+            display = "none";
+            cBorder = "green";
           }
+
+          $(this).siblings('.alert-error').css( "display", display);
+          $(this).css ('border-color', cBorder);
         }
+
+
+          function onSubmitClick ( e ) {
+            if ( name.value === "" || lastName.value === "" ) {
+              e.preventDefault();
+              $(this).siblings('.alert-error').css( "display", "block");
+            } else {
+               $(this).siblings('.alert-error').css( "display", "none");
+            }
+           
+          }
+
+          function onBackClick ( e ) {
+              window.location.href = "/";
+          }
+
 
         var name = document.getElementById('firstName');
           name.addEventListener('blur', validateInput, true);
+
+        var lastName = document.getElementById('lastName');
+          lastName.addEventListener('blur', validateInput, true);
+
+          var btn_submit = document.getElementById ('target');
+          btn_submit.addEventListener ('click', onSubmitClick);
+
+        var btn_back = document.getElementById ('btn_back');
+          btn_back.addEventListener ('click', onBackClick);
+
+
 
         });
     </script>
@@ -41,21 +76,24 @@
   <div class='body-wrapper'>
     <div class='content'>
     <header> 
-      <h1>Where cartoons rule the world</h1>
+      <h1>Springfields Phonebook</h1>
     </header>
+
+    <button id="btn_back" class="btn btn-primary"><i class="fa fa-angle-double-left"></i>  Back to Index</button>
 
     
       <form method="POST" class="form-horizontal" role="form">
         {{#with contact}}
           <div class="form-group">
-            <label for="firstName">First Name</label>
+            <label for="firstName">First Name*</label>
             <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" value="{{firstName}}" />
-            <div class="alert alert-error" style="display: none">Please insert a Name here </div> 
+            <div class="alert alert-error" style="display: none">Please insert the first name here </div> 
           </div>
 
           <div class="form-group">
-            <label for="lastName">Last Name</label>
+            <label for="lastName">Last Name*</label>
             <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" value="{{lastName}}"/>
+             <div class="alert alert-error" style="display: none">Please insert the last name here </div> 
           </div>
 
           <div class="form-group">
@@ -75,6 +113,8 @@
         {{/with}}
 
         <button type="submit" id="target" class="btn btn-default">Submit</button>
+        <div class="alert alert-error" style="display: none">Please insert all the required information </div> 
+
       </form>
     </div>
     </div>
