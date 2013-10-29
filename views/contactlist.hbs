@@ -7,41 +7,60 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
     <!-- Bring In Bootstrap -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+
+  <!-- <script type="text/javascript" src="http://tablesorter.com/jquery-latest.js"></script>  -->
+    <script type="text/javascript" src="http://tablesorter.com/__jquery.tablesorter.min.js"></script>
+    <script src="/contactlist.js"></script>
+
 
     <!-- Application Styles and Scripts -->
     <link rel="stylesheet" href="/jsbootcamp.css">
-    <script src="/contactlist.js"></script>
     <script>
       $(document).ready(function() {
-        makeContactRowClickable();
+          makeContactRowClickable();
+
+          $("#myTable").tablesorter(); 
+
       });
     </script>
   </head>
 
   <body>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Last Name</th>
-          <th>First Name</th>
-          <th>Nickname</th>
-          <th>Company</th>
-        </tr>
-      <thead>
+  <div class='body-wrapper'>
 
-      <tbody>
-        {{#each contacts}}
-          <tr data-contact-guid="{{guid}}">
-            <td>{{lastName}}</td>
-            <td>{{firstName}}</td>
-            <td>{{nickname}}</td>
-            <td>{{company}}</td>
+  <div class='content'>
+  <header> 
+    <h1><i class="fa fa-check-square"></i>Where cartoons rule the world</h1>
+  </header>
+
+      <table id="myTable" class="table table-hover tablesorter">
+        <thead>
+          <tr>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Nickname</th>
+            <th>Company</th>
           </tr>
-        {{/each}}
-      </tbody>
-    </table>
+        <thead>
+
+        <tbody>
+          {{#each contacts}}
+            <tr data-contact-guid="{{guid}}">
+              <td>{{lastName}}</td>
+              <td>{{firstName}}</td>
+              <td>{{nickname}}</td>
+              <td>{{company}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    </div>
+
+
   </body>
 </html>
