@@ -20,7 +20,6 @@ module.exports = function(grunt) {
       main: {
         files: [
           // includes files within path
-          //  { expand: true, src: ['bower_components/**'], dest: 'public/', filter: 'isFile'},
          { expand: true,  src: ['bower_components/bootstrap/**'], dest: 'public'},
          { expand: true, flatten: true, src: ['bower_components/jquery/*.js'], dest: 'public/bower_components'}
         ]
@@ -32,8 +31,11 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-bower-task');
 
-  grunt.registerTask('test', ['jshint', 'copy']);
-  grunt.registerTask('copy2', ['copy']);
+   grunt.registerTask("default", ["jshint", "copy"]);
+
+  //grunt.registerTask('test', ['jshint', 'copy']);
+  //grunt.registerTask('copy2', ['copy']);
 
 };
